@@ -1,0 +1,1 @@
+../../node_modules/codemirror/mode/yaml-frontmatter/yaml-frontmatter.js

@@ -1,0 +1,1 @@
+../../node_modules/codemirror/mode/yaml/yaml.js

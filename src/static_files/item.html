@@ -1,0 +1,12 @@
+<div class="pure-g" onmouseover="show('{{.ID}}')" onmouseout="hide('{{.ID}}')">
+  <div class="pure-u-1 pure-u-md-1 pure-u-lg-2-24"><div class="ib">{{.Icon}}</div></div>
+  <div class="pure-u-1 pure-u-md-4-5 pure-u-lg-20-24">
+    {{.Name}}
+  </div>
+  <div class="pure-u-1 pure-u-md-1-5 pure-u-lg-2-24" style="display: none" id="{{.ID}}">
+    <a href="/view/{{.Path}}">view</button>
+    <a href="/edit/{{.Path}}">edit</button>
+    <a href="/rename/{{.Path}}">rename</button>
+    <a href="/delete/{{.Path}}">delete</button>
+  </div>
+</div>

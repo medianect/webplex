@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*~
+.DS_Store
+webplex
+*.zip
+/vendor/
+node_modules/

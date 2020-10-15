@@ -1,0 +1,18 @@
+<doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/pure.css" />
+    <link rel="stylesheet" href="/css/pure_grids.css" />
+    <link rel="stylesheet" href="/css/page.css" />
+    {{ template "head_styles" . }}
+    <title>{{ template "title" . }}</title>
+    {{ template "head_scripts" . }}
+  </head>
+  <body>
+    {{ template "main" . }}
+  </body>
+</html>
+{{define "head_styles" }}{{ end }}
+{{define "head_scripts" }}{{ end }}

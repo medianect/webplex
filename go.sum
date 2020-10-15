@@ -1,0 +1,5 @@
+github.com/medianect/octicon v0.0.0-20201022095257-f2bc239e412a h1:yJaFvMQb2fEMzPfBoXfoAnLiZ6tScT8dH7oJhSzMckI=
+github.com/medianect/octicon v0.0.0-20201022095257-f2bc239e412a/go.mod h1:0olwVRKOUqtGH6AcrxqeUW/PYMpdM0YIgLdZSSRnS+U=
+github.com/pborman/getopt v1.1.0 h1:eJ3aFZroQqq0bWmraivjQNt6Dmm5M0h2JcDW38/Azb0=
+github.com/pborman/getopt/v2 v2.1.0 h1:eNfR+r+dWLdWmV8g5OlpyrTYHkhVNxHBdN2cCrJmOEA=
+github.com/pborman/getopt/v2 v2.1.0/go.mod h1:4NtW75ny4eBw9fO1bhtNdYTlZKYX5/tBLtsOpwKIKd0=

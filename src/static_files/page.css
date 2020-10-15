@@ -1,0 +1,24 @@
+:root {
+  --background-color: #eee;
+  --selection-color: #d8b070;
+  background-color: var(--background-color);
+}
+.content {
+  margin: 0 auto;
+  padding: 0 2em;
+  max-width: 800px;
+  margin-bottom: 50px;
+  line-height: 1.6em;
+}
+.rb {
+  border: 1px solid red;
+}
+.vc {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.line-picto {
+  padding-left: 1ex;
+}

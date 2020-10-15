@@ -1,0 +1,43 @@
+.e { padding: 1ex 0 1ex 0;}
+/* Disable highlighting effect without forbidding selection. */
+.e::selection {}
+/* Outlines are squarish or anyway not customizable. Borders are inset. So shadow. */
+.e:hover {
+  box-shadow: 0 0 1pt 1pt var(--selection-color);
+}
+.e.selected {
+  background-color: var(--selection-color);
+  border-radius: 0.25ex;
+}
+.act {
+  display: none;
+}
+.e.selected .act {
+  display: block;
+}
+.act a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-size: smaller;
+}
+/*
+.act a {
+  display: block;
+  text-align: center;
+  border-color: var(--background-color);
+  border-style: solid;
+  border-width: 0 0 1px 1px;
+  text-decoration: none;
+  color: white;
+  font-size: smaller;
+}
+.act a:last-child {
+  border-width: 0 0 0 1px;
+}
+With:
+        <a href="#">rename</a>
+        <a href="#">delete</a>
+max-width 800 and these names will make them be one under another
+*/

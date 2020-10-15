@@ -1,0 +1,193 @@
+{{ define "title" }}»{{ .Path }}{{ end }}
+{{ define "head_styles" }}
+<link rel="stylesheet" href="/css/directory.css" />
+{{ end }}
+{{ define "main" }}
+<div class="content">
+  <h1>{{ .Path }}</h1>
+  <div>
+    {{ range $i, $d := .Directories }}
+    <div class="pure-g e d" id="d{{$i}}">
+      <div class="pure-u-1 pure-u-md-1 pure-u-lg-2-24">
+        <div class="vc line-picto">
+          {{ FileDirectoryIcon }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-4-5 pure-u-lg-20-24">
+        <div class="vc">
+          {{ $d.Name }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5 pure-u-lg-2-24 act" id="d{{$i}}a" style="color: red">
+        {{ DashIcon }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{ range $i, $f := .Videos }}
+    <div class="pure-g e v" id="v{{$i}}">
+      <div class="pure-u-1 pure-u-md-1 pure-u-lg-2-24">
+        <div class="vc line-picto">
+          {{ DeviceCameraVideoIcon }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-4-5 pure-u-lg-20-24">
+        <div class="vc">
+          {{ $f.Name }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5 pure-u-lg-2-24" id="v{{$i}}a">
+        {{ HumanReadableSize $f.Size }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{ range $i, $f := .Audios }}
+    <div class="pure-g e a" id="a{{$i}}">
+      <div class="pure-u-1 pure-u-md-1 pure-u-lg-2-24">
+        <div class="vc line-picto">
+          {{ FileMediaIcon }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-4-5 pure-u-lg-20-24">
+        <div class="vc">
+          {{ $f.Name }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5 pure-u-lg-2-24" id="a{{$i}}a">
+        {{ HumanReadableSize $f.Size }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{ range $i, $f := .Texts }}
+    <div class="pure-g e t" id="t{{$i}}">
+      <div class="pure-u-1 pure-u-md-1 pure-u-lg-2-24">
+        <div class="vc line-picto">
+          {{ FileCodeIcon }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-4-5 pure-u-lg-20-24">
+        <div class="vc">
+          {{ $f.Name }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5 pure-u-lg-2-24" id="t{{$i}}a">
+	{{ HumanReadableSize $f.Size }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{ range $i, $f := .Unknowns }}
+    <div class="pure-g e u" id="u{{$i}}">
+      <div class="pure-u-1 pure-u-md-1 pure-u-lg-2-24">
+        <div class="vc line-picto">
+          {{ FileBinaryIcon }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-4-5 pure-u-lg-20-24">
+        <div class="vc">
+          {{ $f.Name }}
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5 pure-u-lg-2-24" id="u{{$i}}a">
+        {{ HumanReadableSize $f.Size }}
+      </div>
+    </div>
+    {{ end }}
+
+  </div>
+</div>
+<footer>
+  <p style="font-size: smaller">Raccourcis clavier: <strong>j</strong> descendre, <strong>k</strong> remonter, <strong>Entrée</strong> visiter, <strong>Retour</strong> revenir.</p>
+</footer>
+<script type="module">
+const entriesIds = [
+  {{ range $i, $e := .Directories }}'d{{$i}}',{{end}}
+  {{ range $i, $e := .Videos      }}'v{{$i}}',{{end}}
+  {{ range $i, $e := .Audios      }}'a{{$i}}',{{end}}
+  {{ range $i, $e := .Images      }}'i{{$i}}',{{end}}
+  {{ range $i, $e := .Texts       }}'t{{$i}}',{{end}}
+  {{ range $i, $e := .Unknowns    }}'u{{$i}}',{{end}}
+]
+const entriesNames = [
+  {{ range $i, $e := .Directories }}{{$e.Name}},{{end}}
+  {{ range $i, $e := .Videos      }}{{$e.Name}},{{end}}
+  {{ range $i, $e := .Audios      }}{{$e.Name}},{{end}}
+  {{ range $i, $e := .Images      }}{{$e.Name}},{{end}}
+  {{ range $i, $e := .Texts       }}{{$e.Name}},{{end}}
+  {{ range $i, $e := .Unknowns    }}{{$e.Name}},{{end}}
+]
+let entriesTargets = []
+
+let selectedLinePos = -1;
+
+for (let i=0; i<entriesIds.length; i++) {
+  const lineId      = entriesIds[i]
+      , lineName    = entriesNames[i]
+      , linePos     = i
+      , line        = document.getElementById(lineId)
+      , lineActions = document.getElementById(lineId+'a')
+
+  let lineTarget
+  if (lineId[0] === 'd') {
+    lineTarget = location.pathname + '/' + lineName
+  } else {
+    lineTarget = location.pathname.replace(/^\/browse/, '/view') + '/' + lineName
+  }
+  entriesTargets.push(lineTarget)
+
+  line.addEventListener('dblclick',  function(){
+    if (window.history) {
+      history.pushState({}, location.href);
+    }
+    location.assign(lineTarget)
+  })
+
+  line.addEventListener('click', function(){
+    if (selectedLinePos >= 0)
+      document.getElementById(entriesIds[selectedLinePos]).classList.remove('selected')
+    selectedLinePos = linePos
+    if (!line.classList.contains('selected'))
+      line.classList.add('selected')
+  })
+}
+
+function selectLine(newPos){
+  if (selectedLinePos >= 0)
+    document.getElementById(entriesIds[selectedLinePos]).classList.remove('selected')
+  selectedLinePos = newPos
+  let line = document.getElementById(entriesIds[newPos])
+  if (!line.classList.contains('selected'))
+    line.classList.add('selected')
+}
+
+document.addEventListener('keyup', event => {
+  if (event.isComposing || event.keyCode === 229) {
+    return
+  }
+  console.log(` ${event.code}`)
+  let newPos = -1
+  switch (event.code) {
+  case 'KeyJ':
+    newPos = (selectedLinePos + 1) % entriesIds.length
+    selectLine(newPos)
+    break
+  case 'KeyK':
+    newPos = entriesIds.length + selectedLinePos
+    if (selectedLinePos !== -1)
+      newPos = (newPos - 1) % entriesIds.length
+    selectLine(newPos)
+    break
+  case 'Enter':
+    if (window.history) {
+      history.pushState({}, location.href);
+    }
+    location.assign(entriesTargets[selectedLinePos])
+    break
+  }
+})
+
+selectLine(0)
+</script>
+{{ end }}

@@ -1,0 +1,43 @@
+{{ define "title" }}»{{ .Path }}{{ end }}
+{{ define "head_styles" }}
+<link rel="stylesheet" href="/css/text_file.css" />
+{{ end }}
+{{ define "head_scripts" }}
+    <script src="/js/codemirror.js"></script>
+{{ end }}
+{{ define "main" }}
+<section class="content">
+  <h1>{{ .Path }}</h1>
+  <article>
+  </article>
+</section>
+<footer>
+  ©
+</footer>
+<script type="module">
+document.addEventListener('keyup', event => {
+  if (event.isComposing || event.keyCode === 229) {
+    return
+  }
+  let newPos = -1
+  switch (event.code) {
+  case 'KeyJ':
+    newPos = (selectedLinePos + 1) % entriesIds.length
+    selectLine(newPos)
+    break
+  case 'KeyK':
+    newPos = entriesIds.length + selectedLinePos
+    if (selectedLinePos !== -1)
+      newPos = (newPos - 1) % entriesIds.length
+    selectLine(newPos)
+    break
+  case 'Enter':
+    if (window.history) {
+      history.pushState({}, location.href);
+    }
+    location.assign(entriesTargets[selectedLinePos])
+    break
+  }
+})
+</script>
+{{ end }}
